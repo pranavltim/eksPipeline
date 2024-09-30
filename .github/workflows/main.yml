@@ -52,7 +52,6 @@ jobs:
         docker tag pranavps3:latest 334037828810.dkr.ecr.ap-south-1.amazonaws.com/pranavps3:latest
         echo "Pushing image to ECR..."
         docker push 334037828810.dkr.ecr.ap-south-1.amazonaws.com/pranavps3:latest
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
