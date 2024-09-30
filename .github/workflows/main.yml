@@ -7,7 +7,6 @@ on:
 env:
   ECR_REPOSITORY: pranavps3
   EKS_CLUSTER_NAME: eksCluster
-  AWS_REGION: ap-south-1
 
 jobs:
   build:
