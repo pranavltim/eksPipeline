@@ -50,5 +50,6 @@ jobs:
 
     - name: Deploy to EKS
       run: |
+        kubectl rollout restart deployment/regapp-deployment
         kubectl apply -f manifest/deployment.yml
         kubectl apply -f manifest/service.yml
