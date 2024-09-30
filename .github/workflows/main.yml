@@ -4,10 +4,6 @@ on:
   push:
     branches: [ main ]
 
-env:
-  ECR_REPOSITORY: pranavps3
-  EKS_CLUSTER_NAME: eksCluster
-
 jobs:
   build:
     name: Deployment
@@ -43,10 +39,6 @@ jobs:
 
     - name: Build, tag and Push
       id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
-        IMAGE_TAG: "latest"
       run: |
         docker build -t pranavps3 .
         docker tag pranavps3:latest 334037828810.dkr.ecr.ap-south-1.amazonaws.com/pranavps3:latest
@@ -57,9 +49,6 @@ jobs:
       run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region ${{ secrets.AWS_REGION }}
 
     - name: Deploy to EKS
-      env: 
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
         kubectl rollout restart deployment/regapp-deployment
         kubectl apply -f k8s/deployment.yaml
